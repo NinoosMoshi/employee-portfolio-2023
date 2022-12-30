@@ -2,6 +2,8 @@ import { AuthenticationService } from './../../../services/security/authenticati
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -26,9 +28,12 @@ export class LoginComponent implements OnInit {
   formParentGroup: FormGroup;
   submitted = false;
 
+
   constructor(private authenticationService: AuthenticationService,
               private formChildGroup: FormBuilder,
-              private router: Router
+              private router: Router,
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService
               ) { }
 
               ngOnInit(): void {
@@ -65,23 +70,31 @@ export class LoginComponent implements OnInit {
                        return;
                     }
 
+                this.spinner.show();
                 this.authenticationService.executeAuthentication(
                   this.formParentGroup.controls['user'].value.email,
                   this.formParentGroup.controls['user'].value.password
                 ).subscribe({
                   next:response =>{
 
+                    setTimeout(() => {
+                      this.spinner.hide();
+                    }, 2000);
+
+                    this.toastr.success('Success', 'You Logging Successfully', {timeOut: 2000});
                     const tempRole = response.roles[0].name;
                     if(tempRole === 'ROLE_ADMIN'){
                       this.router.navigateByUrl("/admin");
                     }else{
                       this.router.navigateByUrl("/user");
                     }
-
-
                   },
                   error:err =>{
+                    this.toastr.error('Error', 'your credentials are invalid', {timeOut: 3000})
 
+                    setTimeout(() => {
+                      this.spinner.hide();
+                    }, 2000);
 
                   }
                 })

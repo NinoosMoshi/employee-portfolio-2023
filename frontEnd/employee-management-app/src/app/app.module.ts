@@ -13,7 +13,9 @@ import { RegistrationComponent } from './components/security/registration/regist
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { UserComponent } from './components/user/user.component';
 import { AdminComponent } from './components/admin/admin.component';
-import { HomeComponent } from './components/home/home.component'
+import { HomeComponent } from './components/home/home.component';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -33,7 +35,10 @@ import { HomeComponent } from './components/home/home.component'
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    NgxSpinnerModule.forRoot({ type: 'ball-atom' }),
+
   ],
   providers: [
     CookieService
