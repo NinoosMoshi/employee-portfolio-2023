@@ -1,19 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { EmployeeComponent } from './components/employee/employee.component'
+import { EmployeeComponent } from './components/employee/employee.component';
+import { LoginComponent } from './components/security/login/login.component';
+import { RegistrationComponent } from './components/security/registration/registration.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { UserComponent } from './components/user/user.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { HomeComponent } from './components/home/home.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    LoginComponent,
+    RegistrationComponent,
+    NavBarComponent,
+    UserComponent,
+    AdminComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +35,9 @@ import { EmployeeComponent } from './components/employee/employee.component'
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
