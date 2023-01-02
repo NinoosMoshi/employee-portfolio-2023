@@ -16,6 +16,10 @@ import { AdminComponent } from './components/admin/admin.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { AddComponent } from './components/admin/admin-components/add/add.component';
+import { EditComponent } from './components/admin/admin-components/edit/edit.component';
+import { DeleteComponent } from './components/admin/admin-components/delete/delete.component';
+
 
 
 @NgModule({
@@ -27,7 +31,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NavBarComponent,
     UserComponent,
     AdminComponent,
-    HomeComponent
+    HomeComponent,
+    AddComponent,
+    EditComponent,
+    DeleteComponent,
   ],
   imports: [
     BrowserModule,

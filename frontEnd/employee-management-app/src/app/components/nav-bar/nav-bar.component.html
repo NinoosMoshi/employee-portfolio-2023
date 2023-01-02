@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark ">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Ninoos</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,8 +16,8 @@
           <a class="nav-link active" aria-current="page" routerLink="/user" *ngIf="isAuthenticated() && isUser()">User Dashboard</a>
         </li>
       </ul>
-      <button type="button" class="btn btn-success" routerLink="/login" *ngIf="!isAuthenticated()">Login</button>
-      <button  class="btn btn-danger" type="button" *ngIf="isAuthenticated()" (click)="isLogout()">LOGOUT</button>
+      <button type="button" class="btn btn-primary" routerLink="/login" *ngIf="!isAuthenticated()">Login</button>
+      <button type="button" class="btn btn-danger"  *ngIf="isAuthenticated()" (click)="isLogout()">LOGOUT</button>
     </div>
   </div>
 </nav>

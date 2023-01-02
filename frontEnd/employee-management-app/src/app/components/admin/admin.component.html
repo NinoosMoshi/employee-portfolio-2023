@@ -1,1 +1,46 @@
-<p>admin works!</p>
+<h3>Admin Dashboard</h3>
+
+<div class="container">
+  <div class="row">
+
+    <button type="button" class="btn btn-primary" (click)="saveEmployee()">
+      <i class="fa fa-plus"></i>
+      New Employee
+    </button>
+
+     <table class="table table-hover">
+        <thead class="table table-borderless">
+           <tr class="text-center">
+            <th>Image</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone</th>
+            <th>Action</th>
+           </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let temp of employees">
+            <td>
+              <img height="40" width="40" src="" class="rounded-circle img-fluid img-thumbnail" alt=""/>
+            </td>
+            <td>{{temp.firstName}}</td>
+            <td>{{temp.lastName}}</td>
+            <td>{{temp.phone}}</td>
+            <td class="">
+              <div class="btn-group">
+                <button  class="btn btn-outline-info"  ><i class="fas fa-edit"></i></button>
+                <button  class="btn btn-outline-danger"  ><i class="fas fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+     </table>
+  </div>
+</div>
+
+
+<app-add (saveEmit)="receivedFromAdd($event)"></app-add>
+
+
+
+

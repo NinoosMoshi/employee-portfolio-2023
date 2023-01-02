@@ -1,1 +1,31 @@
-<p>user works!</p>
+<h3>Admin Dashboard</h3>
+
+<div class="container">
+  <div class="row">
+
+     <table class="table table-hover">
+        <thead class="table table-borderless">
+           <tr class="text-center">
+             <th>Image</th>
+             <th>First Name</th>
+             <th>Last Name</th>
+             <th>Email</th>
+           </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let temp of employees">
+            <td>
+              <img height="40" width="40" src="" class="rounded-circle img-fluid img-thumbnail" alt=""/>
+            </td>
+            <td>{{temp.firstName}}</td>
+            <td>{{temp.lastName}}</td>
+            <td>{{temp.email}}</td>
+            <td class="hidden">{{temp.phone}}</td>
+          </tr>
+        </tbody>
+     </table>
+  </div>
+</div>
+
+
+

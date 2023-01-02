@@ -80,12 +80,10 @@ mySignupForm(){
           this.toastr.success('Success', 'You Register Successfully');
           this.router.navigateByUrl("/login")
         }else{
-          // alert("This Email is Exists")
           this.toastr.error('This Email is Exists')
         };
       },
       error:err =>{
-        // alert('there is something wrong');
         this.toastr.error('there is something wrong')
         this.spinner.hide();
       }
