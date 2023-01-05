@@ -5,13 +5,15 @@ import { RegistrationComponent } from './components/security/registration/regist
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/security/login/login.component';
+import { RouteActiveService } from './services/security/canActive/route-active.service';
+import { LoginActiveService } from './services/security/canActive/login-active.service';
 
 const routes: Routes = [
-  {path:'login', component:LoginComponent},
-  {path:'register', component:RegistrationComponent},
-  {path:'home', component:HomeComponent},
-  {path:'user', component:UserComponent},
-  {path:'admin', component:AdminComponent},
+  {path:'login', component:LoginComponent, canActivate:[LoginActiveService]},
+  {path:'register', component:RegistrationComponent, canActivate:[LoginActiveService]},
+  {path:'home', component:HomeComponent, canActivate:[RouteActiveService]},
+  {path:'user', component:UserComponent, canActivate:[RouteActiveService]},
+  {path:'admin', component:AdminComponent, canActivate:[RouteActiveService]},
   {path:"",redirectTo:"/login",pathMatch:'full'},
   {path:'**', redirectTo:'/login',pathMatch:'full'},
 ];

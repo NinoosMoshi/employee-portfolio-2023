@@ -31,7 +31,7 @@ public class EmployeeController {
     }
 
 
-    
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id){

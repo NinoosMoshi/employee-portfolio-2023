@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { LoginComponent } from './components/security/login/login.component';
 import { RegistrationComponent } from './components/security/registration/registration.component';
@@ -19,6 +19,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AddComponent } from './components/admin/admin-components/add/add.component';
 import { DeleteComponent } from './components/admin/admin-components/delete/delete.component';
 import { SaveComponent } from './components/admin/admin-components/save/save.component';
+import { HttpInterceptorService } from './services/security/http-interceptor.service';
 
 
 
@@ -48,6 +49,7 @@ import { SaveComponent } from './components/admin/admin-components/save/save.com
 
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService, multi:true},
     CookieService
   ],
   bootstrap: [AppComponent]
