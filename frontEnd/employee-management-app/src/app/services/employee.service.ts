@@ -38,6 +38,37 @@ export class EmployeeService {
     )
   }
 
+  // edit employee
+  public updateEmployee(employee:Employee, employeeId:number):Observable<Employee>{
+    let head = new HttpHeaders({
+      Authorization: sessionStorage.getItem("token").toString()
+    });
+    return this.http.put<Employee>(`${this.baseURL}/update/${employeeId}`,employee,{headers:head}).pipe(
+      map(response =>{
+        return response
+      })
+    )
+  }
+
+
+  // delete employee
+  public deleteEmployeeService(employee:Employee):Observable<any>{
+    let head = new HttpHeaders({
+      Authorization: sessionStorage.getItem("token").toString()
+    });
+    return this.http.delete<void>(`${this.baseURL}/delete/${employee.id}`,{headers:head});
+  }
+
+  // public deleteEmployeeService(employee:Employee):Observable<any>{
+  //   let head = new HttpHeaders({
+  //     Authorization: sessionStorage.getItem("token").toString()
+  //   });
+  //   return this.http.delete<void>(`${this.baseURL}/delete/${employee.id}`,{headers:head}).pipe(
+  //     map(response =>{
+  //       return response
+  //     })
+  //   )
+  // }
 
 
 }

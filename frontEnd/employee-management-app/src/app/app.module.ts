@@ -17,8 +17,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { AddComponent } from './components/admin/admin-components/add/add.component';
-import { EditComponent } from './components/admin/admin-components/edit/edit.component';
 import { DeleteComponent } from './components/admin/admin-components/delete/delete.component';
+import { SaveComponent } from './components/admin/admin-components/save/save.component';
 
 
 
@@ -33,8 +33,8 @@ import { DeleteComponent } from './components/admin/admin-components/delete/dele
     AdminComponent,
     HomeComponent,
     AddComponent,
-    EditComponent,
     DeleteComponent,
+    SaveComponent,
   ],
   imports: [
     BrowserModule,

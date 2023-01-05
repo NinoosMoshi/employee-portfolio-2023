@@ -26,13 +26,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDTOS;
     }
 
-    @Override
-    public EmployeeDTO getEmployeeById(Long id) {
-        Employee employee = employeeRepository.findById(id).get();
-        EmployeeDTO employeeDTO = entityToDto(employee);
-        return employeeDTO;
-    }
-
 
 
     @Override
@@ -44,6 +37,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDtoResponse;
     }
 
+
+    @Override
+    public void deleteEmployeeById(Long id) {
+        employeeRepository.deleteById(id);
+    }
+
+
+
+
+    @Override
+    public EmployeeDTO getEmployeeById(Long id) {
+        Employee employee = employeeRepository.findById(id).get();
+        EmployeeDTO employeeDTO = entityToDto(employee);
+        return employeeDTO;
+    }
 
 
 
@@ -63,10 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 
-    @Override
-    public void deleteEmployeeById(Long id) {
-       employeeRepository.deleteById(id);
-    }
+
 
 
 

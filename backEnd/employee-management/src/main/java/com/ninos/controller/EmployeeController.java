@@ -1,5 +1,4 @@
 package com.ninos.controller;
-
 import com.ninos.dto.EmployeeDTO;
 import com.ninos.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,17 +24,29 @@ public class EmployeeController {
        return employeeService.getAllEmployees();
     }
 
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    @GetMapping("/get-employee/{id}")
-    public EmployeeDTO getEmployeeById(@PathVariable("id") Long employeeId){
-        return employeeService.getEmployeeById(employeeId);
-    }
-
-
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/save")
     public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.saveEmployee(employeeDTO);
+    }
+
+
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable Long id){
+        employeeService.deleteEmployeeById(id);
+        return new ResponseEntity<>(OK);
+    }
+
+
+
+
+
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping("/get-employee/{id}")
+    public EmployeeDTO getEmployeeById(@PathVariable("id") Long employeeId){
+        return employeeService.getEmployeeById(employeeId);
     }
 
 
@@ -44,14 +57,7 @@ public class EmployeeController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long employeeId){
-        EmployeeDTO employeeDTO = employeeService.getEmployeeById(employeeId);
-        employeeService.deleteEmployeeById(employeeId);
-        return new ResponseEntity<>("You delete Employee: " +
-                employeeDTO.getFirstName() + " " + employeeDTO.getLastName() +" successfully", HttpStatus.OK);
-    }
+
 
 
 

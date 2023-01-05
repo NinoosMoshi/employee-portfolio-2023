@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+declare var $:any;
 
 @Component({
   selector: 'app-delete',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeleteComponent implements OnInit {
 
+  @Output() confirmed = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+
+  deleteEmployee(){
+    this.confirmed.emit();
+    $('#EmployeeDeleteModal').modal('hide');
+  }
+
+  showDeleteModal(){
+    $('#EmployeeDeleteModal').modal('show');
+  }
+
+
 
 }

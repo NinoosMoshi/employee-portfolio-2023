@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
 
-    <button type="button" class="btn btn-primary" (click)="saveEmployee()">
+    <button type="button" class="btn btn-primary" (click)="createEmployeeRequest()">
       <i class="fa fa-plus"></i>
       New Employee
     </button>
@@ -11,6 +11,7 @@
      <table class="table table-hover">
         <thead class="table table-borderless">
            <tr class="text-center">
+            <th>#</th>
             <th>Image</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -19,7 +20,9 @@
            </tr>
         </thead>
         <tbody>
-          <tr class="text-center" *ngFor="let temp of employees">
+          <tr class="text-center" *ngFor="let temp of employees; index as ind">
+
+            <td>{{ind + 1}}</td>
             <td>
               <img height="40" width="40" src="" class="rounded-circle img-fluid img-thumbnail" alt=""/>
             </td>
@@ -28,8 +31,8 @@
             <td>{{temp.phone}}</td>
             <td class="">
               <div class="btn-group">
-                <button  class="btn btn-outline-info"  ><i class="fas fa-edit"></i></button>
-                <button  class="btn btn-outline-danger"  ><i class="fas fa-trash"></i></button>
+                <button  class="btn btn-outline-info" (click)= editEmployeeRequest(temp) ><i class="fas fa-edit"></i></button>
+                <button  class="btn btn-outline-danger" (click)="deleteEmployeeRequest(temp)" ><i class="fas fa-trash"></i></button>
               </div>
             </td>
           </tr>
@@ -39,7 +42,10 @@
 </div>
 
 
-<app-add (saveEmit)="receivedFromAdd($event)"></app-add>
+<app-save [employee]="selectedEmployee" (save)="saveEmployeeWatcher($event)"></app-save>
+
+<app-delete (confirmed)="deleteEmployeeTemp()"></app-delete>
+
 
 
 

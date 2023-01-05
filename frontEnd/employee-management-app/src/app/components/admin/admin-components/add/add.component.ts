@@ -14,6 +14,8 @@ declare var $:any;
 export class AddComponent implements OnInit {
 
   @Input() employee:Employee = new Employee;
+
+
   @Output() saveEmit = new EventEmitter();
 
   constructor(private employeeService:EmployeeService,
@@ -47,6 +49,8 @@ export class AddComponent implements OnInit {
       }
     })
   }
+
+
 
 
   showAddModal(){

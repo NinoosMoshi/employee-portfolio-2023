@@ -1,0 +1,83 @@
+
+<div class="modal fade" id="EmployeeSaveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Product Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" >
+          <div class="mb-3">
+            <label for="firstName" class="col-form-label">First Name:</label>
+            <input type="text" class="form-control" id="firstName"
+            name="firstName" [(ngModel)]="employee.firstName"
+            #firstName="ngModel"
+            [ngClass]="{ 'is-invalid': firstName.errors, 'is-valid':firstName }"
+            required >
+            <!--start validation-->
+            <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="mssage-error">
+              <div *ngIf="firstName.errors?.['required']">First Name is a required field!</div>
+            </div>
+            <!--end validation-->
+          </div>
+
+          <div class="mb-3">
+            <label for="lastName" class="col-form-label">Last Name:</label>
+            <input type="text" class="form-control"
+            id="lastName" name="lastName"
+             [(ngModel)]="employee.lastName"
+             #lastName="ngModel"
+             [ngClass]="{ 'is-invalid': lastName.errors, 'is-valid':lastName }"
+             required >
+             <!--start validation-->
+            <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="mssage-error">
+              <div *ngIf="lastName.errors?.['required']">Last Name is a required field!</div>
+            </div>
+            <!--end validation-->
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="email" class="form-control"
+            id="email" name="email" [(ngModel)]="employee.email"
+            #email="ngModel"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            [ngClass]="{ 'is-invalid': email.errors, 'is-valid':email }"
+            required >
+            <!--start validation-->
+            <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="mssage-error">
+              <div *ngIf="email.errors?.['required']">Email is a required field!</div>
+              <div *ngIf="email.errors?.['pattern']">This is not a valid Email!!!</div>
+            </div>
+            <!--end validation-->
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label">Phone:</label>
+            <input class="form-control"
+                   name="phone"
+                   [(ngModel)]="employee.phone"
+                   #phone="ngModel"
+                   pattern="^((\\+91-?)|0)?[0-9]{10}$"
+                   [ngClass]="{ 'is-invalid': phone.errors, 'is-valid':phone }"
+                   required >
+
+             <!--start validation-->
+             <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="mssage-error">
+              <div *ngIf="phone.errors?.['required']">Phone is a required field!</div>
+              <div *ngIf="phone.errors?.['pattern']">This is not a valid Phone!!!</div>
+            </div>
+            <!--end validation-->
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid" (click)="saveEmployee()">Save Product</button>
+      </div>
+    </div>
+  </div>
+</div>
