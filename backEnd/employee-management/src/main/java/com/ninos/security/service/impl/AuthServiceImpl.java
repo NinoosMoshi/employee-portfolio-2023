@@ -1,5 +1,6 @@
 package com.ninos.security.service.impl;
 
+import com.ninos.mail.EmailService;
 import com.ninos.security.dto.AccountResponse;
 import com.ninos.security.dto.LoginDTO;
 import com.ninos.security.dto.LoginResponse;
@@ -11,6 +12,7 @@ import com.ninos.security.jwt.JwtTokenProvider;
 import com.ninos.security.repository.UserRepository;
 import com.ninos.security.service.AuthService;
 import com.ninos.security.service.RoleService;
+import com.ninos.util.RandomCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RoleService roleService;
+    private final EmailService emailService;
 
 
     @Override
@@ -82,11 +85,13 @@ public class AuthServiceImpl implements AuthService {
             throw new EmployeeAPIException(HttpStatus.BAD_REQUEST, "Email is already exists!");
         }
 
+        String myCode = RandomCode.generateCode();
         User user = new User();
         user.setName(registerDTO.getName());
         user.setUsername(registerDTO.getUsername());
         user.setEmail(registerDTO.getEmail());
         user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        user.setActive(0);
         user.getRoles().add(roleService.getAllRoles().get(1));
 
         userRepository.save(user);
