@@ -1,6 +1,8 @@
 package com.ninos.mail;
 
+import com.ninos.security.entity.Code;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.SimpleMailMessage;
@@ -8,11 +10,12 @@ import org.springframework.scheduling.annotation.Async;
 
 
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    private final JavaMailSender javaMailSender;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
 
     @Async
@@ -23,11 +26,8 @@ public class EmailServiceImpl implements EmailService {
         simpleMailMessage.setFrom("ninoosmoshi222@gmail.com");
         simpleMailMessage.setTo(email.getTo());
         simpleMailMessage.setSubject("UserCode Active");
-
-        simpleMailMessage.setText("ACTIVE CODE IS: "+ email.getCode());
-
+        simpleMailMessage.setText(email.getCode());
         javaMailSender.send(simpleMailMessage);
-
 
     }
 }

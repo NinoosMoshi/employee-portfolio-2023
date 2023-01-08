@@ -1,10 +1,9 @@
 package com.ninos.security.service.impl;
 
+import com.ninos.mail.Email;
 import com.ninos.mail.EmailService;
-import com.ninos.security.dto.AccountResponse;
-import com.ninos.security.dto.LoginDTO;
-import com.ninos.security.dto.LoginResponse;
-import com.ninos.security.dto.RegisterDTO;
+import com.ninos.security.dto.*;
+import com.ninos.security.entity.Code;
 import com.ninos.security.entity.Role;
 import com.ninos.security.entity.User;
 import com.ninos.security.exception.EmployeeAPIException;
@@ -56,6 +55,23 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
+    @Override
+    public UserActive userActive(LoginDTO loginDTO) {
+        String enPassword = userRepository.getPasswordByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail());  // get password this email from mysql
+        boolean result = passwordEncoder.matches(loginDTO.getPassword(),enPassword); // match password that user entered with password in mysql
+        UserActive userActive = new UserActive();
+        if (result){
+            int act = userRepository.getActiveByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail());
+            userActive.setActive(act);
+        }else{
+            userActive.setActive(-1);
+        }
+        return userActive;
+    }
+
+
+
+
     private List<Role> getRoleList(User user){
         List<Role> roleList = new ArrayList<>();
         for(int i=0; i< user.getRoles().size(); i++) {
@@ -78,7 +94,6 @@ public class AuthServiceImpl implements AuthService {
             accountResponse.setResult(0);
             throw new EmployeeAPIException(HttpStatus.BAD_REQUEST, "Username is already exists!");
         }
-
         // check email is exists in database
         if (userRepository.existsByEmail(registerDTO.getEmail())){
             accountResponse.setResult(0);
@@ -94,6 +109,11 @@ public class AuthServiceImpl implements AuthService {
         user.setActive(0);
         user.getRoles().add(roleService.getAllRoles().get(1));
 
+        Email mail = new Email(registerDTO.getEmail(), myCode);
+        emailService.sendCodeByMail(mail);
+        Code code = new Code();
+        code.setCode(myCode);
+        user.setCode(code);
         userRepository.save(user);
         accountResponse.setResult(1);
 

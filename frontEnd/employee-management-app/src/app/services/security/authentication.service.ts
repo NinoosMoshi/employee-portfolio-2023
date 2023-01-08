@@ -34,6 +34,16 @@ export class AuthenticationService {
     }
 
 
+      // http://localhost:8080/active
+      UserActive(usernameOrEmail:string, password:string):Observable<any>{
+        return this.http.post<any>(`${this.baseUrl}/active`,{usernameOrEmail,password}).pipe(
+          map(response =>{
+            return response
+          })
+        );
+      }
+
+
 
     // http://localhost:8080/register
     createUser(name:string, username:string ,email:string, password:string):Observable<any>{

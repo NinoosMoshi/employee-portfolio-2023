@@ -20,6 +20,7 @@ import { AddComponent } from './components/admin/admin-components/add/add.compon
 import { DeleteComponent } from './components/admin/admin-components/delete/delete.component';
 import { SaveComponent } from './components/admin/admin-components/save/save.component';
 import { HttpInterceptorService } from './services/security/http-interceptor.service';
+import { CodeActivationComponent } from './components/security/code-activation/code-activation.component';
 
 
 
@@ -36,6 +37,7 @@ import { HttpInterceptorService } from './services/security/http-interceptor.ser
     AddComponent,
     DeleteComponent,
     SaveComponent,
+    CodeActivationComponent,
   ],
   imports: [
     BrowserModule,

@@ -62,6 +62,9 @@ export class LoginComponent implements OnInit {
               }
 
 
+
+
+
               login(){
                 this.submitted = true;
 
@@ -69,38 +72,104 @@ export class LoginComponent implements OnInit {
                        this.formParentGroup.markAllAsTouched()
                        return;
                     }
+                  this.authenticationService.UserActive(
+                     this.formParentGroup.controls['user'].value.email,
+                     this.formParentGroup.controls['user'].value.password
+                  ).subscribe({
+                    next:data =>{
+                      if(data.active == 0){
+                        this.router.navigateByUrl("/active");
+                      }
+                      else if(data.active == 1){
+                        this.getExcuteTrue()
+                      }
+                      else{
 
-                this.spinner.show();
-                this.authenticationService.executeAuthentication(
-                  this.formParentGroup.controls['user'].value.email,
-                  this.formParentGroup.controls['user'].value.password
-                ).subscribe({
-                  next:response =>{
+                      }
+                    },
+                    error:err =>{
 
-                    setTimeout(() => {
-                      this.spinner.hide();
-                    }, 2000);
-
-                    this.toastr.success('Success', 'You Logging Successfully', {timeOut: 2000});
-                    const tempRole = response.roles[0].name;
-                    if(tempRole === 'ROLE_ADMIN'){
-                      this.router.navigateByUrl("/admin");
-                    }else{
-                      this.router.navigateByUrl("/user");
                     }
-                  },
-                  error:err =>{
-                    this.toastr.error('Error', 'your credentials are invalid', {timeOut: 3000})
-
-                    setTimeout(() => {
-                      this.spinner.hide();
-                    }, 2000);
-
-                  }
-                })
-
+                  })
 
               }
+
+
+
+
+            getExcuteTrue(){
+              this.authenticationService.executeAuthentication(
+                  this.formParentGroup.controls['user'].value.email,
+                  this.formParentGroup.controls['user'].value.password
+              ).subscribe({
+                next:response =>{
+                        const tempRole = response.roles[0].name;
+                        if(tempRole === 'ROLE_ADMIN'){
+                          this.router.navigateByUrl("/admin");
+                        }else{
+                          this.router.navigateByUrl("/user");
+                        }
+                },
+                error:err =>{
+
+                }
+              })
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              // login(){
+              //   this.submitted = true;
+
+              //       if(this.formParentGroup.invalid){
+              //          this.formParentGroup.markAllAsTouched()
+              //          return;
+              //       }
+
+              //   this.spinner.show();
+              //   this.authenticationService.executeAuthentication(
+              //     this.formParentGroup.controls['user'].value.email,
+              //     this.formParentGroup.controls['user'].value.password
+              //   ).subscribe({
+              //     next:response =>{
+
+              //       setTimeout(() => {
+              //         this.spinner.hide();
+              //       }, 2000);
+
+              //       this.toastr.success('Success', 'You Logging Successfully', {timeOut: 2000});
+              //       const tempRole = response.roles[0].name;
+              //       if(tempRole === 'ROLE_ADMIN'){
+              //         this.router.navigateByUrl("/admin");
+              //       }else{
+              //         this.router.navigateByUrl("/user");
+              //       }
+              //     },
+              //     error:err =>{
+              //       this.toastr.error('Error', 'your credentials are invalid', {timeOut: 3000})
+
+              //       setTimeout(() => {
+              //         this.spinner.hide();
+              //       }, 2000);
+
+              //     }
+              //   })
+
+              // }
 
 
 
