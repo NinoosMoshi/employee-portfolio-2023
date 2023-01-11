@@ -45,26 +45,9 @@ public class AuthController {
 
 
 
-    @PostMapping("/activated")
-    public AccountResponse activeAccount(@RequestBody ActiveAccount activeAccount){
-        User user = userService.getUserByEmail(activeAccount.getEmail());
-        AccountResponse accountResponse = new AccountResponse();
-        if (user.getCode().getCode().equals(activeAccount.getCode())){
-           user.setActive(1);
-           userRepository.save(user);
-           accountResponse.setResult(1);
-        } else {
-           accountResponse.setResult(0);
-        }
-
-        return accountResponse;
-
-    }
-
-
 //    @PostMapping("/activated")
 //    public AccountResponse activeAccount(@RequestBody ActiveAccount activeAccount){
-//        User user = userService.gerUserByUsernameOrEmail(activeAccount.getUsernameOrEmail(), activeAccount.getUsernameOrEmail());
+//        User user = userService.getUserByEmail(activeAccount.getEmail());
 //        AccountResponse accountResponse = new AccountResponse();
 //        if (user.getCode().getCode().equals(activeAccount.getCode())){
 //           user.setActive(1);
@@ -77,6 +60,23 @@ public class AuthController {
 //        return accountResponse;
 //
 //    }
+
+
+    @PostMapping("/activated")
+    public AccountResponse activeAccount(@RequestBody ActiveAccount activeAccount){
+        User user = userService.gerUserByUsernameOrEmail(activeAccount.getUsernameOrEmail(), activeAccount.getUsernameOrEmail());
+        AccountResponse accountResponse = new AccountResponse();
+        if (user.getCode().getCode().equals(activeAccount.getCode())){
+           user.setActive(1);
+           userRepository.save(user);
+           accountResponse.setResult(1);
+        } else {
+           accountResponse.setResult(0);
+        }
+
+        return accountResponse;
+
+    }
 
 
 

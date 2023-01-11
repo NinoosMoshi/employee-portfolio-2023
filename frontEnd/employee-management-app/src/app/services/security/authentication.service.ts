@@ -45,14 +45,24 @@ export class AuthenticationService {
 
 
 
-      // http://localhost:8080/api/v1/auth/activated
-      activeAccount(email:string, code:string):Observable<any>{
-        return this.http.post<any>(`${this.baseUrl}/activated`,{email,code}).pipe(
-          map(response =>{
-            return response
-          })
-        );
-      }
+      // // http://localhost:8080/api/v1/auth/activated
+      // activeAccount(email:string, code:string):Observable<any>{
+      //   return this.http.post<any>(`${this.baseUrl}/activated`,{email,code}).pipe(
+      //     map(response =>{
+      //       return response
+      //     })
+      //   );
+      // }
+
+
+        // http://localhost:8080/api/v1/auth/activated
+        activeAccount(usernameOrEmail:string, code:string):Observable<any>{
+          return this.http.post<any>(`${this.baseUrl}/activated`,{usernameOrEmail,code}).pipe(
+            map(response =>{
+              return response
+            })
+          );
+        }
 
 
 

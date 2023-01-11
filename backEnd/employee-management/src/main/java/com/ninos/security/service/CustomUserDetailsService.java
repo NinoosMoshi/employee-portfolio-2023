@@ -31,15 +31,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userPrincipal;
     }
 
+//
+//    public User getUserByEmail(String email){
+//        return userRepository.findByEmail(email);
+//    }
 
-    public User getUserByEmail(String email){
-        return userRepository.findByEmail(email);
-    }
 
-
-//      public User gerUserByUsernameOrEmail(String username, String email){
-//        return userRepository.findByUsernameOrEmail(username,email).get();
-//      }
+      public User gerUserByUsernameOrEmail(String username, String email){
+        return userRepository.findByUsernameOrEmail(username,email).get();
+      }
 
 
 }
