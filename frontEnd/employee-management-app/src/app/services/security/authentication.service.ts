@@ -15,7 +15,7 @@ export class AuthenticationService {
 
 
 
-     // http://localhost:8080/login
+     // http://localhost:8080/api/v1/auth/login
      executeAuthentication(usernameOrEmail:string, password:string):Observable<any>{
       return this.http.post<any>(`${this.baseUrl}/login`,{usernameOrEmail,password}).pipe(
         map(response =>{
@@ -34,7 +34,7 @@ export class AuthenticationService {
     }
 
 
-      // http://localhost:8080/active
+      // http://localhost:8080/api/v1/auth/active
       UserActive(usernameOrEmail:string, password:string):Observable<any>{
         return this.http.post<any>(`${this.baseUrl}/active`,{usernameOrEmail,password}).pipe(
           map(response =>{
@@ -45,7 +45,19 @@ export class AuthenticationService {
 
 
 
-    // http://localhost:8080/register
+      // http://localhost:8080/api/v1/auth/activated
+      activeAccount(email:string, code:string):Observable<any>{
+        return this.http.post<any>(`${this.baseUrl}/activated`,{email,code}).pipe(
+          map(response =>{
+            return response
+          })
+        );
+      }
+
+
+
+
+    // http://localhost:8080/api/v1/auth/register
     createUser(name:string, username:string ,email:string, password:string):Observable<any>{
       return this.http.post(`${this.baseUrl}/register`,{name,username,email,password}).pipe(
         map(response => {

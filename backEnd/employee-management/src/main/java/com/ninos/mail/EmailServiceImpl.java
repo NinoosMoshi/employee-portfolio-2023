@@ -9,8 +9,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
 
 
-
-//@AllArgsConstructor
 @Service
 public class EmailServiceImpl implements EmailService {
 

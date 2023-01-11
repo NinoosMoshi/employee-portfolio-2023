@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit {
                   ).subscribe({
                     next:data =>{
                       if(data.active == 0){
+                        sessionStorage.setItem("emailActive",this.formParentGroup.controls['user'].value.email);
                         this.router.navigateByUrl("/active");
                       }
                       else if(data.active == 1){

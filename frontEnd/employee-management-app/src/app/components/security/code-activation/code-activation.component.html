@@ -7,7 +7,7 @@
          <form (ngSubmit)="done()" [formGroup]="formParentGroup">
           <div formGroupName="user">
            <div class="form-group">
-            <label for="exampleInputCode">Welcome <span></span></label>
+            <label for="exampleInputCode">Welcome <span>{{email}}</span></label>
              <input formControlName="code" type="text" class="form-control form-control-sm" id="exampleInputCode" [ngClass]="{ 'is-invalid': code.errors, 'is-valid':code }"/>
               <!-- start validate name -->
               <div *ngIf="code?.invalid && (code?.dirty || code?.touched)">

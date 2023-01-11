@@ -1,16 +1,16 @@
 package com.ninos.security.controller;
 
 import com.ninos.security.dto.*;
+import com.ninos.security.entity.User;
+import com.ninos.security.repository.UserRepository;
 import com.ninos.security.service.AuthService;
 import com.ninos.security.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,7 +19,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final CustomUserDetailsService userService;
-    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
 
     // build Login API
@@ -42,6 +42,41 @@ public class AuthController {
     public UserActive getActiveUser(@RequestBody LoginDTO loginDTO){
         return authService.userActive(loginDTO);
     }
+
+
+
+    @PostMapping("/activated")
+    public AccountResponse activeAccount(@RequestBody ActiveAccount activeAccount){
+        User user = userService.getUserByEmail(activeAccount.getEmail());
+        AccountResponse accountResponse = new AccountResponse();
+        if (user.getCode().getCode().equals(activeAccount.getCode())){
+           user.setActive(1);
+           userRepository.save(user);
+           accountResponse.setResult(1);
+        } else {
+           accountResponse.setResult(0);
+        }
+
+        return accountResponse;
+
+    }
+
+
+//    @PostMapping("/activated")
+//    public AccountResponse activeAccount(@RequestBody ActiveAccount activeAccount){
+//        User user = userService.gerUserByUsernameOrEmail(activeAccount.getUsernameOrEmail(), activeAccount.getUsernameOrEmail());
+//        AccountResponse accountResponse = new AccountResponse();
+//        if (user.getCode().getCode().equals(activeAccount.getCode())){
+//           user.setActive(1);
+//           userRepository.save(user);
+//           accountResponse.setResult(1);
+//        } else {
+//           accountResponse.setResult(0);
+//        }
+//
+//        return accountResponse;
+//
+//    }
 
 
 

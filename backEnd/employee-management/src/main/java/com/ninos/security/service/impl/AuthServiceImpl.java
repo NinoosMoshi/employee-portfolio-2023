@@ -10,6 +10,7 @@ import com.ninos.security.exception.EmployeeAPIException;
 import com.ninos.security.jwt.JwtTokenProvider;
 import com.ninos.security.repository.UserRepository;
 import com.ninos.security.service.AuthService;
+import com.ninos.security.service.CustomUserDetailsService;
 import com.ninos.security.service.RoleService;
 import com.ninos.util.RandomCode;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,7 @@ public class AuthServiceImpl implements AuthService {
     private final EmailService emailService;
 
 
+
     @Override
     public LoginResponse login(LoginDTO loginDTO) {
 
@@ -43,7 +45,6 @@ public class AuthServiceImpl implements AuthService {
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsernameOrEmail(), loginDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        LoginResponse loginResponse = new LoginResponse();
 
         User user = userRepository.findByUsernameOrEmail(loginDTO.getUsernameOrEmail(),loginDTO.getUsernameOrEmail()).get();
 
@@ -119,6 +120,11 @@ public class AuthServiceImpl implements AuthService {
 
         return accountResponse;
     }
+
+
+
+
+
 
 
 

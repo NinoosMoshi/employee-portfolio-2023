@@ -1,5 +1,7 @@
 package com.ninos.security.service;
 
+import com.ninos.security.dto.AccountResponse;
+import com.ninos.security.dto.ActiveAccount;
 import com.ninos.security.dto.UserPrincipal;
 import com.ninos.security.entity.User;
 import com.ninos.security.repository.UserRepository;
@@ -30,6 +32,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
 
+    public User getUserByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
+
+//      public User gerUserByUsernameOrEmail(String username, String email){
+//        return userRepository.findByUsernameOrEmail(username,email).get();
+//      }
 
 
 }
