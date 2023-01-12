@@ -1,10 +1,13 @@
 package com.ninos.security.controller;
 
+import com.ninos.mail.Email;
+import com.ninos.mail.EmailService;
 import com.ninos.security.dto.*;
 import com.ninos.security.entity.User;
 import com.ninos.security.repository.UserRepository;
 import com.ninos.security.service.AuthService;
 import com.ninos.security.service.CustomUserDetailsService;
+import com.ninos.util.RandomCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,7 @@ public class AuthController {
     private final AuthService authService;
     private final CustomUserDetailsService userService;
     private final UserRepository userRepository;
+    private final EmailService emailService;
 
 
     // build Login API
@@ -45,23 +49,6 @@ public class AuthController {
 
 
 
-//    @PostMapping("/activated")
-//    public AccountResponse activeAccount(@RequestBody ActiveAccount activeAccount){
-//        User user = userService.getUserByEmail(activeAccount.getEmail());
-//        AccountResponse accountResponse = new AccountResponse();
-//        if (user.getCode().getCode().equals(activeAccount.getCode())){
-//           user.setActive(1);
-//           userRepository.save(user);
-//           accountResponse.setResult(1);
-//        } else {
-//           accountResponse.setResult(0);
-//        }
-//
-//        return accountResponse;
-//
-//    }
-
-
     @PostMapping("/activated")
     public AccountResponse activeAccount(@RequestBody ActiveAccount activeAccount){
         User user = userService.gerUserByUsernameOrEmail(activeAccount.getUsernameOrEmail(), activeAccount.getUsernameOrEmail());
@@ -77,6 +64,33 @@ public class AuthController {
         return accountResponse;
 
     }
+
+
+    @PostMapping("/check-email")
+    public AccountResponse resetPasswordEmail(@RequestBody ResetPassword resetPassword){
+
+        User user = userRepository.findByEmail(resetPassword.getEmail());
+        AccountResponse accountResponse = new AccountResponse();
+        if (user != null){
+            String newCode = RandomCode.generateCode();
+            Email email = new Email(resetPassword.getEmail(), newCode);
+            emailService.sendCodeByMail(email);
+            user.getCode().setCode(newCode);
+            userRepository.save(user);
+            accountResponse.setResult(1);
+        }else {
+            accountResponse.setResult(0);
+        }
+
+        return accountResponse;
+    }
+
+
+
+
+
+
+
 
 
 
