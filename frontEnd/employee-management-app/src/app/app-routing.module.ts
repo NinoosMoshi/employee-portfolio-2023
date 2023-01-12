@@ -1,3 +1,4 @@
+import { ResetPasswordComponent } from './components/security/reset-password/reset-password.component';
 import { CodeActivationComponent } from './components/security/code-activation/code-activation.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
@@ -17,6 +18,8 @@ const routes: Routes = [
   {path:'home', component:HomeComponent, canActivate:[RouteActiveService]},
   {path:'user', component:UserComponent, canActivate:[RouteActiveService]},
   {path:'admin', component:AdminComponent, canActivate:[RouteActiveService]},
+  {path:'reset', component:ResetPasswordComponent},
+
   {path:"",redirectTo:"/login",pathMatch:'full'},
   {path:'**', redirectTo:'/login',pathMatch:'full'},
 ];

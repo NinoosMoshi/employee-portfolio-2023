@@ -21,6 +21,7 @@ import { DeleteComponent } from './components/admin/admin-components/delete/dele
 import { SaveComponent } from './components/admin/admin-components/save/save.component';
 import { HttpInterceptorService } from './services/security/http-interceptor.service';
 import { CodeActivationComponent } from './components/security/code-activation/code-activation.component';
+import { ResetPasswordComponent } from './components/security/reset-password/reset-password.component';
 
 
 
@@ -38,6 +39,7 @@ import { CodeActivationComponent } from './components/security/code-activation/c
     DeleteComponent,
     SaveComponent,
     CodeActivationComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

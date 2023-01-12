@@ -73,3 +73,6 @@ input[type="password"] :focus {
   background-color: transparent;
 }
 
+a{
+  text-decoration: none;
+}
