@@ -15,6 +15,7 @@ export class CodeActivationComponent implements OnInit {
   email:string = '';
 
 
+
   constructor(private formChildGroup: FormBuilder,
               private authenticationService:AuthenticationService,
               private router:Router) { }

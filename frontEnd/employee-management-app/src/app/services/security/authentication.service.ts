@@ -65,6 +65,26 @@ export class AuthenticationService {
         }
 
 
+        // http://localhost:8080/api/v1/auth/check-email
+        checkEmail(email:string):Observable<any>{
+          return this.http.post<any>(`${this.baseUrl}/check-email`,{email}).pipe(
+            map(response =>{
+              return response
+            })
+          );
+        }
+
+
+        // http://localhost:8080/api/v1/auth/reset-password
+        resetPassword(email:string, code:string, password:string):Observable<any>{
+          return this.http.post<any>(`${this.baseUrl}/reset-password`,{email,code,password}).pipe(
+            map(response =>{
+              return response
+            })
+          );
+        }
+
+
 
 
     // http://localhost:8080/api/v1/auth/register

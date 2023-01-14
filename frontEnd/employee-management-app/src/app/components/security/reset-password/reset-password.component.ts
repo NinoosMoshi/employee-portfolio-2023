@@ -13,9 +13,11 @@ export class ResetPasswordComponent implements OnInit {
 
   formParentGroup!: FormGroup;
   formParentGroupReset!: FormGroup;
-  enableFrom: boolean = false;
+  enableFrom: boolean = true;
 
-  constructor(private formChildGroup: FormBuilder,private authenticationService: AuthenticationService, private router:Router) { }
+  constructor(private formChildGroup: FormBuilder,
+              private authenticationService: AuthenticationService,
+              private router:Router) { }
 
   ngOnInit(): void {
     this.myFormLogin();
@@ -62,6 +64,27 @@ export class ResetPasswordComponent implements OnInit {
   }
 
 
+  done(){
+    if(this.formParentGroup.invalid){
+      this.formParentGroup.markAllAsTouched();
+      return
+   }
+
+   this.authenticationService.checkEmail(this.formParentGroup.controls['user'].value.email).subscribe({
+    next:response =>{
+      if(response.result == 1){
+         this.enableFrom = false;
+      }
+      else{
+       console.log("email does not exists")
+      }
+    },
+    error:err =>{
+
+    }
+   })
+
+  }
 
 
   resetNewPassword(){
@@ -71,15 +94,27 @@ export class ResetPasswordComponent implements OnInit {
     }
 
 
+    this.authenticationService.resetPassword(
+      this.formParentGroup.controls['user'].value.email,
+      this.formParentGroupReset.controls['newUser'].value.code,
+      this.formParentGroupReset.controls['newUser'].value.password
+    ).subscribe({
+     next:response =>{
+       if(response.result == 1){
+         this.router.navigateByUrl("/login")
+       }else{
+        console.log("there is error")
+       }
+     },
+     error:err =>{
+       console.log('you can not reset your password')
+     }
+    })
+
+
   }
 
-  done(){
-    if(this.formParentGroup.invalid){
-      this.formParentGroup.markAllAsTouched();
-      return
-   }
 
-  }
 
 
 

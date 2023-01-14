@@ -79,6 +79,7 @@ mySignupForm(){
         if(response.result == 1){
           this.toastr.success('Success', 'You Register Successfully');
           sessionStorage.setItem("emailActive",this.formParentGroup.controls['user'].value.email);
+          sessionStorage.setItem("emailRegister",this.formParentGroup.controls['user'].value.email);
           this.router.navigateByUrl("/active");
         }else{
           this.toastr.error('This Email is Exists')
