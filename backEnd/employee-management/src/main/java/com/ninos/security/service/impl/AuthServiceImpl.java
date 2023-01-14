@@ -63,6 +63,16 @@ public class AuthServiceImpl implements AuthService {
         UserActive userActive = new UserActive();
         if (result){
             int act = userRepository.getActiveByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail());
+            if(act == 0){
+               String myCode = RandomCode.generateCode();
+
+               Email mail = new Email(loginDTO.getUsernameOrEmail(), myCode);
+               emailService.sendCodeByMail(mail);
+
+               User user = userRepository.findByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail()).get();
+               user.getCode().setCode(myCode);
+               userRepository.save(user);
+            }
             userActive.setActive(act);
         }else{
             userActive.setActive(-1);

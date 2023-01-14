@@ -24,6 +24,7 @@ public class AuthController {
     private final CustomUserDetailsService userService;
     private final UserRepository userRepository;
     private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
 
 
     // build Login API
@@ -87,6 +88,26 @@ public class AuthController {
 
 
 
+    @PostMapping("/reset-password")
+    public AccountResponse resetPassword(@RequestBody NewPassword newPassword){
+        User user = userRepository.findByEmail(newPassword.getEmail());
+        AccountResponse accountResponse = new AccountResponse();
+        if (user != null){
+           if (user.getCode().getCode().equals(newPassword.getCode())){
+              user.setPassword(passwordEncoder.encode(newPassword.getPassword()));
+               userRepository.save(user);
+               accountResponse.setResult(1);
+           }else {
+               accountResponse.setResult(0);
+           }
+        }
+        else {
+              accountResponse.setResult(0);
+        }
+
+        return accountResponse;
+
+    }
 
 
 
