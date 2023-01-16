@@ -1,3 +1,4 @@
+import { SocialMediaService } from './../../../services/security/social-media.service';
 import { AuthenticationService } from './../../../services/security/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
@@ -30,8 +31,6 @@ export class LoginComponent implements OnInit {
   formParentGroup: FormGroup;
   submitted = false;
 
-  user: SocialUser;
-  loggedIn: boolean;
 
 
   constructor(private authenticationService: AuthenticationService,
@@ -39,7 +38,8 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private toastr: ToastrService,
               private spinner: NgxSpinnerService,
-              private authService: SocialAuthService
+              private authService: SocialAuthService,
+              private socialService:SocialMediaService
               ) { }
 
               ngOnInit(): void {
@@ -49,9 +49,15 @@ export class LoginComponent implements OnInit {
 
               signInWithGoogle(): void {
                 this.authService.authState.subscribe((data) => {
-                  this.user = data;
-                  this.loggedIn = (data != null);
-                  console.log(data)
+                  this.socialService.signWithGoogle(data.idToken).subscribe({
+                    next:response =>{
+                      this.router.navigateByUrl("/user");
+                    },
+                    error:err =>{
+
+                    }
+                  })
+
                 });
               }
 
@@ -62,7 +68,16 @@ export class LoginComponent implements OnInit {
               signInWithFB(): void {
                 this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
                   data =>{
-                    console.log(data);
+                    console.log(data.authToken);
+                    this.socialService.signWithFacebook(data.authToken).subscribe({
+                      next:response =>{
+                        this.router.navigateByUrl("/user");
+                      },
+                      error:err =>{
+                         console.log(err)
+                      }
+                    })
+
                   }
                 );
               }
