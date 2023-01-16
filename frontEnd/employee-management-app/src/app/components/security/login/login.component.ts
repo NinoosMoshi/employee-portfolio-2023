@@ -4,6 +4,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 
 
 
@@ -28,17 +30,47 @@ export class LoginComponent implements OnInit {
   formParentGroup: FormGroup;
   submitted = false;
 
+  user: SocialUser;
+  loggedIn: boolean;
+
 
   constructor(private authenticationService: AuthenticationService,
               private formChildGroup: FormBuilder,
               private router: Router,
               private toastr: ToastrService,
-              private spinner: NgxSpinnerService
+              private spinner: NgxSpinnerService,
+              private authService: SocialAuthService
               ) { }
 
               ngOnInit(): void {
                 this.myLoginForm();
+                this.signInWithGoogle();
               }
+
+              signInWithGoogle(): void {
+                this.authService.authState.subscribe((data) => {
+                  this.user = data;
+                  this.loggedIn = (data != null);
+                  console.log(data)
+                });
+              }
+
+
+
+
+
+              signInWithFB(): void {
+                this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
+                  data =>{
+                    console.log(data);
+                  }
+                );
+              }
+
+
+
+
+
 
               myLoginForm(){
                  this.formParentGroup = this.formChildGroup.group({

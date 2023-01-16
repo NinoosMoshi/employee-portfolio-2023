@@ -43,6 +43,7 @@ public class SecurityConfig {
                         authorize.requestMatchers(HttpMethod.GET,"/api/v1/employees/**").permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                                 .requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers("/api/v1/social/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

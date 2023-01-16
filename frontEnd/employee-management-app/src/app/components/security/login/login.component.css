@@ -17,7 +17,7 @@ form {
 
 .login-form {
   width: 380px;
-  height: 450px;
+  height: 460px;
   background: #1a2226 !important;
   border-radius: 10px !important;
 }
@@ -47,7 +47,7 @@ input[type="password"] :focus {
 }
 
 .btn {
-  background: #0db8de !important;
+  background: #0db8de;
   font-size: 14px;
   transform: translateY(10px);
   border-radius: 10px !important;
@@ -76,3 +76,30 @@ input[type="password"] :focus {
 a{
   text-decoration: none;
 }
+
+
+
+
+.social{
+  display: flex;
+  margin-top: 10px;
+}
+
+.google_btn{
+  color: #fff;
+  background-color: #CF4332;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+
+
+.facebook_btn{
+  color: #fff;
+  background-color: #3C66C4;
+  margin-left: 5px;
+}
+
+
+
+

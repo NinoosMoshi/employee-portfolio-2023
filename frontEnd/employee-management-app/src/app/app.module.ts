@@ -22,6 +22,8 @@ import { SaveComponent } from './components/admin/admin-components/save/save.com
 import { HttpInterceptorService } from './services/security/http-interceptor.service';
 import { CodeActivationComponent } from './components/security/code-activation/code-activation.component';
 import { ResetPasswordComponent } from './components/security/reset-password/reset-password.component';
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 
 
 
@@ -50,11 +52,32 @@ import { ResetPasswordComponent } from './components/security/reset-password/res
     HttpClientModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule.forRoot({ type: 'ball-atom' }),
-
+    SocialLoginModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService, multi:true},
-    CookieService
+    CookieService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '210659427338-6l2dsouv2jat11fhkvor9u9flheoh13t.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('503584255211653')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })
