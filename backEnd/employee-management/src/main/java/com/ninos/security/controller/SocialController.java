@@ -80,16 +80,6 @@ public class SocialController {
 
 
 
-    //http://localhost:8080/social/facebook
-    @PostMapping("/facebook")
-    public LoginResponse loginWithFacebook(@RequestBody TokenDto tokenDto){
-        Facebook facebook = new FacebookTemplate(tokenDto.getToken());
-        String [] data = {"email","name","picture"};
-        User userFacebook = facebook.fetchObject("me",User.class,data);
-        return loginSocial(userFacebook.getEmail());
-    }
-
-
 
     private LoginResponse loginSocial(String email){
         boolean result = userRepository.existsByEmail(email);

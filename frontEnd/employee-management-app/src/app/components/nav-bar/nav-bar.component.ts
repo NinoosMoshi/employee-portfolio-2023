@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/security/authentication.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,7 +10,10 @@ import { AuthenticationService } from 'src/app/services/security/authentication.
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(private authenticationService:AuthenticationService, private router:Router) { }
+  constructor(private authenticationService:AuthenticationService,
+              private router:Router,
+              private authService: SocialAuthService
+              ) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +26,7 @@ export class NavBarComponent implements OnInit {
  isLogout(){
   this.router.navigateByUrl("/login")
   this.authenticationService.logout();
+  this.authService.signOut();  // sign out for google
 }
 
 isUser(){

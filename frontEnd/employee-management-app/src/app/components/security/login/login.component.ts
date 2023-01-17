@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   formParentGroup: FormGroup;
   submitted = false;
 
+  user:SocialUser;
 
 
   constructor(private authenticationService: AuthenticationService,
@@ -60,28 +61,6 @@ export class LoginComponent implements OnInit {
 
                 });
               }
-
-
-
-
-
-              signInWithFB(): void {
-                this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
-                  data =>{
-                    console.log(data.authToken);
-                    this.socialService.signWithFacebook(data.authToken).subscribe({
-                      next:response =>{
-                        this.router.navigateByUrl("/user");
-                      },
-                      error:err =>{
-                         console.log(err)
-                      }
-                    })
-
-                  }
-                );
-              }
-
 
 
 

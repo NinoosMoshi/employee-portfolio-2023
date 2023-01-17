@@ -80,26 +80,51 @@ a{
 
 
 
-.social{
-  display: flex;
-  margin-top: 10px;
-}
 
-.google_btn{
-  color: #fff;
-  background-color: #CF4332;
-  margin-left: 10px;
-  margin-right: 5px;
+.google{
+  position: absolute;
+  text-align: center;
+  margin-left: 155px;
+  margin-right: 150px;
+
 }
 
 
 
-.facebook_btn{
-  color: #fff;
-  background-color: #3C66C4;
-  margin-left: 5px;
+h5{
+  font-family: sans-serif;
+  margin: 5px auto;
+  text-align: center;
+  max-width: 600px;
+  position:relative;
 }
 
+h5::before{
+  content: '';
+  display: block;
+  width: 150px;
+  height: 2px;
+  background: rgb(251 83 83);
+  position: absolute;
+  left: 0;
+  top: 50%;
 
+}
+
+h5::after{
+  content: '';
+  display: block;
+  width: 150px;
+  height: 2px;
+  background: rgb(251 83 83);
+  position: absolute;
+  right: 0;
+  top: 50%;
+
+}
+
+span{
+  background: #212529;
+}
 
 

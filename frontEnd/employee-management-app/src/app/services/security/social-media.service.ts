@@ -30,20 +30,7 @@ export class SocialMediaService {
   }
 
 
-  signWithFacebook(token:string):Observable<any>{
-    return this.http.post<any>(`${this.baseUsrl}/facebook`,{token}).pipe(
-      map(response =>{
-        sessionStorage.setItem("email", response.email);
-          sessionStorage.setItem("token",`Bearer ${response.token}`);
-          sessionStorage.setItem("role",response.roles[0].name)
 
-          this.cookie.set("email", response.email);
-          this.cookie.set("token",`Bearer ${response.token}`);
-          this.cookie.set("role",response.roles[0].name)
-
-          return response
-      }))
-  }
 
 
 
