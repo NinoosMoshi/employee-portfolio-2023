@@ -1,0 +1,22 @@
+ /* start pagination */
+
+ .pag
+ {
+   padding-left: 10%;
+   margin: 20px 1px;
+ }
+
+
+
+ .sel
+ {
+  color: #fff;
+  margin-left: 297px;
+  margin-top: -55px;
+  height: 13px;
+  padding: 8px;
+  position: absolute;
+
+ }
+
+ /* end pagination */

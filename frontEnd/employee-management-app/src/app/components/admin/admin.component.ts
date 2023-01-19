@@ -23,20 +23,20 @@ export class AdminComponent implements OnInit {
   constructor(private employeeService: EmployeeService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getEmployees();
+    // this.getEmployees();
   }
 
 
-  getEmployees(){
-    this.employeeService.getAllEmployees().subscribe({
-      next:response =>{
-        this.employees = response;
-      },
-      error:err =>{
-       this.toastr.error('Error', 'You can not get Employees', {timeOut: 2000})
-      }
-    })
-  }
+  // getEmployees(){
+  //   this.employeeService.getAllEmployees().subscribe({
+  //     next:response =>{
+  //       this.employees = response;
+  //     },
+  //     error:err =>{
+  //      this.toastr.error('Error', 'You can not get Employees', {timeOut: 2000})
+  //     }
+  //   })
+  // }
 
 
 

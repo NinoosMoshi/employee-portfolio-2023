@@ -15,11 +15,27 @@ export class EmployeeService {
 
 
     // get all employees
-    public getAllEmployees():Observable<Employee[]>{
-      return this.http.get<Employee[]>(`${this.baseURL}/all`).pipe(
+    // public getAllEmployees():Observable<Employee[]>{
+    //   return this.http.get<Employee[]>(`${this.baseURL}/all`).pipe(
+    //     map(response =>{
+    //       return response
+    //     })
+    //   );
+    // }
+
+    // get all employees
+    public getAllEmployees(pageN:number, sizeN:number):Observable<Employee[]>{
+      return this.http.get<Employee[]>(`${this.baseURL}/all?page=${pageN}&size=${sizeN}`).pipe(
         map(response =>{
           return response
         })
+      );
+    }
+
+
+    public getEmployeeLength(): Observable<number>{
+      return this.http.get<number>(`${this.baseURL}/employee-size`).pipe(
+        map(response => response)
       );
     }
 

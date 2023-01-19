@@ -13,6 +13,12 @@ export class UserComponent implements OnInit {
 
   employees: Employee[];
 
+  page:number = 1;
+  pageLength: number = 5;  // pageSize  -> select
+  totalOrder:number = 0;  // collectionSize, the total number of orders
+
+
+
   constructor(private employeeService: EmployeeService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -21,7 +27,10 @@ export class UserComponent implements OnInit {
 
 
   getEmployees(){
-    this.employeeService.getAllEmployees().subscribe({
+    this.employeeService.getEmployeeLength().subscribe(data =>{
+      this.totalOrder = data
+    })
+    this.employeeService.getAllEmployees(this.page-1,this.pageLength).subscribe({
       next:response =>{
         this.employees = response;
       },
@@ -32,6 +41,15 @@ export class UserComponent implements OnInit {
   }
 
 
+  doing(){
+    this.getEmployees();
+  }
+
+
+  pageSize(event:Event){
+    this.pageLength = +(<HTMLInputElement>event.target).value;
+    this.getEmployees();
+  }
 
 
 }

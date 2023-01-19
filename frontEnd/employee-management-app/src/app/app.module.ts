@@ -24,6 +24,7 @@ import { CodeActivationComponent } from './components/security/code-activation/c
 import { ResetPasswordComponent } from './components/security/reset-password/reset-password.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -52,7 +53,9 @@ import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-s
     HttpClientModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule.forRoot({ type: 'ball-atom' }),
-    SocialLoginModule
+    SocialLoginModule,
+    NgbPaginationModule,
+    NgbModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass:HttpInterceptorService, multi:true},
