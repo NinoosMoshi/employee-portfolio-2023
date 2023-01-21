@@ -43,7 +43,20 @@ public class EmployeeController {
     }
 
 
+    // http://localhost:8080/api/v1/employees/search?name={}
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping("/search")
+    public List<EmployeeDTO> searchEmployee(@RequestParam String name, @RequestParam int page, @RequestParam int size){
+        return employeeService.getEmployeesByKey(name,page,size);
+    }
 
+
+    // http://localhost:8080/api/v1/employees/key-size?key={value}
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping("/key-size")
+    public Long getEmployeeByKeySize(@RequestParam String key){
+        return employeeService.getEmployeeByKeyLength(key);
+    }
 
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -76,6 +89,7 @@ public class EmployeeController {
     public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO, @PathVariable("id") Long employeeId){
          return employeeService.updateEmployee(employeeDTO,employeeId);
     }
+
 
 
 

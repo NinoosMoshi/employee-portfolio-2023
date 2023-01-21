@@ -5,6 +5,7 @@ import { Employee } from './../../model/employee';
 import { EmployeeService } from './../../services/employee.service';
 import { ToastrService } from 'ngx-toastr';
 import { AddComponent } from './admin-components/add/add.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -20,23 +21,60 @@ export class AdminComponent implements OnInit {
   employees: Employee[];
   selectedEmployee:Employee = new Employee;
 
-  constructor(private employeeService: EmployeeService, private toastr: ToastrService) { }
+  page:number = 1;
+  pageLength: number = 5;  // pageSize  -> select
+  totalOrder:number = 11;  // collectionSize, the total number of orders
+
+  constructor(private employeeService: EmployeeService,
+    private activatedRoute: ActivatedRoute,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     // this.getEmployees();
+    // this.finalEmployee();
+    this.activatedRoute.paramMap.subscribe(
+      () =>{
+        this.finalEmployee();
+      }
+    )
   }
 
 
-  // getEmployees(){
-  //   this.employeeService.getAllEmployees().subscribe({
-  //     next:response =>{
-  //       this.employees = response;
-  //     },
-  //     error:err =>{
-  //      this.toastr.error('Error', 'You can not get Employees', {timeOut: 2000})
-  //     }
-  //   })
-  // }
+  finalEmployee(){
+    let result = this.activatedRoute.snapshot.paramMap.has('key');
+    if(result){
+      this.getEmployeesByContainingKey();
+    }else{
+      this.getEmployees();
+    }
+  }
+
+
+  getEmployees(){
+    this.employeeService.getEmployeeLength().subscribe(data =>{
+      this.totalOrder = data
+    })
+    this.employeeService.getAllEmployees(this.page-1,this.pageLength).subscribe({
+      next:response =>{
+        this.employees = response;
+      },
+      error:err =>{
+       this.toastr.error('Error', 'You can not get Employees', {timeOut: 3000})
+      }
+    })
+  }
+
+
+  getEmployeesByContainingKey(){
+    let keyword = this.activatedRoute.snapshot.paramMap.get('key');
+
+    this.employeeService.getEmployeeByKeySize(keyword).subscribe(data =>{
+       this.totalOrder = data
+    })
+    this.employeeService.getEmployeesByKey(keyword,this.page-1,this.pageLength).subscribe(data =>{
+      this.employees = data
+    })
+  }
 
 
 
@@ -93,7 +131,14 @@ export class AdminComponent implements OnInit {
 
 
 
+   doing(){
+    this.finalEmployee();
+  }
 
+  pageSize(event:Event){
+    this.pageLength = +(<HTMLInputElement>event.target).value;
+    this.finalEmployee();
+  }
 
 
 }

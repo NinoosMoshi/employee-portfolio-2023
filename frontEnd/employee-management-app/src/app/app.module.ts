@@ -25,6 +25,7 @@ import { ResetPasswordComponent } from './components/security/reset-password/res
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SearchComponent } from './components/search/search.component';
 
 
 
@@ -43,6 +44,7 @@ import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SaveComponent,
     CodeActivationComponent,
     ResetPasswordComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

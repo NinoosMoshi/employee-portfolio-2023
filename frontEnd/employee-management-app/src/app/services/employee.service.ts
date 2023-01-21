@@ -33,8 +33,24 @@ export class EmployeeService {
     }
 
 
+
+     public getEmployeesByKey(key:string,pageN:number, sizeN:number):Observable<Employee[]>{
+      return this.http.get<Employee[]>(`${this.baseURL}/search?name=${key}&page=${pageN}&size=${sizeN}`).pipe(
+        map(response =>{
+          return response
+        })
+      );
+    }
+
+
     public getEmployeeLength(): Observable<number>{
       return this.http.get<number>(`${this.baseURL}/employee-size`).pipe(
+        map(response => response)
+      );
+    }
+
+    public getEmployeeByKeySize(key:string):Observable<number>{
+      return this.http.get<number>(`${this.baseURL}/key-size?key=${key}`).pipe(
         map(response => response)
       );
     }

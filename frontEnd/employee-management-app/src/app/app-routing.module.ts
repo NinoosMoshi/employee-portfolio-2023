@@ -1,3 +1,4 @@
+import { EmployeeComponent } from './components/employee/employee.component';
 import { ResetPasswordComponent } from './components/security/reset-password/reset-password.component';
 import { CodeActivationComponent } from './components/security/code-activation/code-activation.component';
 import { AdminComponent } from './components/admin/admin.component';
@@ -19,6 +20,8 @@ const routes: Routes = [
   {path:'user', component:UserComponent, canActivate:[RouteActiveService]},
   {path:'admin', component:AdminComponent, canActivate:[RouteActiveService]},
   {path:'reset', component:ResetPasswordComponent},
+
+  {path:'admin/:key', component:AdminComponent},
 
   {path:"",redirectTo:"/login",pathMatch:'full'},
   {path:'**', redirectTo:'/login',pathMatch:'full'},

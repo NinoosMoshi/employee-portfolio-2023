@@ -38,6 +38,34 @@
           </tr>
         </tbody>
      </table>
+
+       <!-- Start Pagination -->
+  <div class=" col-md-8  pag ">
+
+    <ngb-pagination
+       [(page)]="page"
+       [pageSize]="pageLength"
+       [collectionSize]="totalOrder"
+       [maxSize]="2"
+       [boundaryLinks]="true"
+       (pageChange)="doing()"
+    >
+    </ngb-pagination>
+
+
+
+    <div class="sel">
+     <select (change)="pageSize($event)">
+       <option>3</option>
+       <option selected="true">5</option>
+       <option>8</option>
+     </select>
+   </div>
+
+ </div> <!-- End Pagination -->
+
+
+
   </div>
 </div>
 

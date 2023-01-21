@@ -48,6 +48,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
+    public List<EmployeeDTO> getEmployeesByKey(String name,int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        List<Employee> employees = employeeRepository.findEmployeeByFirstNameContaining(name,pageable).getContent();
+        List<EmployeeDTO> employeeDTOS = employees.stream().map(temp -> entityToDto(temp)).collect(Collectors.toList());
+        return employeeDTOS;
+    }
+
+    @Override
+    public Long getEmployeeByKeyLength(String key) {
+        return employeeRepository.getEmployeeLengthByKeySearch(key);
+    }
+
+
+
+
+
+    @Override
     public EmployeeDTO getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id).get();
         EmployeeDTO employeeDTO = entityToDto(employee);
@@ -86,6 +103,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeDTO employeeDtoResponse = entityToDto(save);
         return employeeDtoResponse;
     }
+
+
+
+
+
 
 
 
